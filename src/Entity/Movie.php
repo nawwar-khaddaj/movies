@@ -6,6 +6,7 @@ use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -13,17 +14,28 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+   
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+     /**
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
+     */
     private $title;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable:true)]
+     /**
+     * @Assert\NotBlank
+     */
     private $realeaseYear;
+      /**
+     * @Assert\NotBlank
+     */
 
     #[ORM\Column(type: 'string', length: 255)]
     private $description;
-
+   
     #[ORM\Column(type: 'string', length: 255)]
     private $imagePath;
 
@@ -45,7 +57,7 @@ class Movie
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -57,7 +69,7 @@ class Movie
         return $this->realeaseYear;
     }
 
-    public function setRealeaseYear(int $realeaseYear): self
+    public function setRealeaseYear(?int $realeaseYear): self
     {
         $this->realeaseYear = $realeaseYear;
 
@@ -69,7 +81,7 @@ class Movie
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -81,7 +93,7 @@ class Movie
         return $this->imagePath;
     }
 
-    public function setImagePath(string $imagePath): self
+    public function setImagePath(?string $imagePath): self
     {
         $this->imagePath = $imagePath;
 
