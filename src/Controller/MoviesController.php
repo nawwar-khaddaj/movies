@@ -16,7 +16,7 @@ class MoviesController extends AbstractController
     {
         $this->em=$em;
     }
-    #[Route('/movies', name: 'app_movies',methods:['GET','HEAD'])]
+    #[Route('/movies', name: 'movies',methods:['GET','HEAD'])]
     public function index(MovieRepository $movieRepository): Response
     {
         $movies = $this->em->getRepository(Movie::class)->findAll();
@@ -25,7 +25,18 @@ class MoviesController extends AbstractController
         // ['id'=>'DESC']);
         // $movies->count([]);
         // dd($movies);
-    return $this->render('index.html.twig',['movies'=>$movies]);
+      
+    return $this->render('movies/index.html.twig',['movies'=>$movies]);
+    }
+
+    #[Route('/movies/{id}',name:'show',methods:['GET','HEAD'])]
+
+    public function show($id) : Response
+    {
+        $movie=$this->em->getRepository(Movie::class)->find($id);
+    
+        return $this->render('movies/show.html.twig',['movie'=>$movie]);
+
     }
 
 }

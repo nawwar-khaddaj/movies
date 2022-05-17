@@ -22,9 +22,7 @@ Encore
  */
 .addEntry('app', './assets/app.js')
 
-.addEntry('method1', './assets/javascript/method1.js')
 
-.addEntry('method2', './assets/javascript/method2.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')
@@ -61,6 +59,12 @@ Encore
 
 // enables Sass/SCSS support
 //.enableSassLoader()
+//copy files
+.copyFiles({
+    from: './assets/images',
+    to: 'images/[path][name].[hash:8].[ext]',
+    pattern: /\.(png|jpg|jpeg)$/
+})
 
 // uncomment if you use TypeScript
 //.enableTypeScriptLoader()
@@ -74,6 +78,7 @@ Encore
 
 // uncomment if you're having problems with a jQuery plugin
 //.autoProvidejQuery()
-.enablePostCssLoader((options) => { options.postcssOptions = { config: './postcss.config.js' } });
+.enablePostCssLoader((options) => { options.postcssOptions = { config: './postcss.config.js' } })
+
 
 module.exports = Encore.getWebpackConfig();
